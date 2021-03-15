@@ -1,0 +1,47 @@
+.send-message-form {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 75px;
+}
+
+.message {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    max-width: 350px;
+    display: inline-block;
+}
+
+.message-date {
+    align-self: center;
+}
+
+.own-message {
+    background: #005cbf;
+}
+
+.partner-message {
+    background: #343a40;
+}
+
+.message-container {
+    display: flex;
+}
+
+.own-message-container {
+    justify-content: right;
+}
+
+.partner-message-container {
+    justify-content: left;
+    flex-direction: row-reverse;
+}
+
+.partner-message-container .message-date {
+     margin-right: 10px;
+ }
+
+.own-message-container .message-date {
+    margin-left: 10px;
+}

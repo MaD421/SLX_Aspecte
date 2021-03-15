@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"> </header>
+<div class="main-container container-fluid">
+    <h1>Edit Listing</h1>
+    <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
+    <form th:action="@{/editListing/process}" th:object="${listingDetails}" th:method="PUT" enctype="multipart/form-data">
+        <input type="hidden" th:field="${listingDetails.listingId}" th:value="${listingDetails.listingId}" />
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" name="title" id ="title" th:field="${listingDetails.title}" size="30" />
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" name="description" id="description" rows="15" cols="40" th:field="${listingDetails.description}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="type">Type</label>
+            <input class="form-control" type="text" name="type" id ="type" th:field="${listingDetails.type}" size="20" />
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input class="form-control" type="text" name="price" id ="price" th:field="${listingDetails.price}" size="20" />
+        </div>
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select th:field="${listingDetails.currency}" name="currency" id="currency" class="form-control form-control-md">
+                <option value="RON" th:selected="${listingDetails.currency == 'RON'}">RON</option>
+                <option value="EURO" th:selected="${listingDetails.currency == 'EURO'}">EURO</option>
+                <option value="USD" th:selected="${listingDetails.currency == 'USD'}">USD</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <span>Available?</span>
+            <div>
+                <div class="custom-control custom-radio">
+                    <input class="custom-control-input" id="availableListing1" name="availableListing" type="radio" th:field="${listingDetails.available}" th:checked="${listingDetails.available}" th:value="true">
+                    <label class="custom-control-label" for="availableListing1">Yes</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input class="custom-control-input" id="availableListing2" name="availableListing" type="radio" th:field="${listingDetails.available}" th:checked="${listingDetails.available}" th:value="false">
+                    <label class="custom-control-label" for="availableListing2">No</label>
+                </div>
+            </div>
+        </div>
+        <p>You can upload <span class="js-can-upload-img" th:text="${5 - listing.images.size()}"></span> image|s.</p>
+        <div class="custom-file mb-3" th:if="${5 - listing.images.size() > 0}">
+            <input type="file" class="custom-file-input" id="imagesListing" name="imagesListing" multiple accept="image/jpeg, image/jpg, image/png">
+            <label class="custom-file-label" for="imagesListing">Choose files</label>
+        </div>
+        <div th:include="fragment/general.html :: imagesFragment" th:if="${listing.images.size() > 0}"></div>
+        <input class="btn btn-primary js-submit-listing" type="submit" value="Edit Listing" />
+    </form>
+</div>
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

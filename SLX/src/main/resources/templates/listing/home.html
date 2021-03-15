@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"></header>
+<div class="container">
+    <div class="row">
+        <h1>Available Listings</h1>
+    </div>
+    <!--/*@thymesVar id="search" type=""*/-->
+    <p th:if="${listingList.size() == 0}">There are no listings yet!</p>
+    <div class="row">
+        <div th:include="fragment/general.html :: searchFragment" class="col-6"></div>
+        <div th:include="fragment/general.html :: sortFragment" th:if="${listingList.size() != 0}" class="col-3"></div>
+        <div th:include="fragment/general.html :: currencyFragment" class="col-3"></div>
+    </div>
+
+    <div class="row text-center">
+        <div th:each="listing : ${listingList}" class="col-3 mr-2" style="border: black solid 1px;">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a title="View listing"
+                       th:href="@{'/viewListing/' + ${listing.listingId}}"
+                       th:text="${listing.title}"></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    Category - <span th:text="${listing.type}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <span th:text="${listing.price}"></span>
+                    <span th:text="${listing.currency}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <td th:text="${listing.description}"></td>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a title="View all listings" th:href="|/user/${listing.owner.userId}/listings/pg/1|"
+                       th:text="${listing.owner.username}"></a> - <span
+                        th:text="${#temporals.format(listing.updatedAt, 'dd/MM/yyyy HH:mm')}"></span>
+                </div>
+            </div>
+        </div>
+        <div th:include="fragment/general.html :: paginationFragment" th:if="${listingList.size() != 0}"
+             class="col-12"></div>
+    </div>
+</div>
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

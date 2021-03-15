@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"> </header>
+<div class="main-container container-fluid">
+    <div class="alert alert-danger" role="alert">There was an error with your request</div>
+</div>
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

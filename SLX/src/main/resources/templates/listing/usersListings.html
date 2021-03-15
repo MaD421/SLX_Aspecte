@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"> </header>
+<div class="main-container container-fluid">
+    <div th:include="fragment/general.html :: searchFragment"></div>
+    <h1 th:text="${userName} + '\'s listings'"></h1>
+    <p th:if="${listingList.size() == 0}" th:text="${userName} has no listings yet!"></p>
+    <div th:include="fragment/general.html :: sortFragment" th:if="${listingList.size() != 0}"></div>
+    <div th:include="fragment/general.html :: currencyFragment"></div>
+    <div th:each="listing : ${listingList}">
+        <table>
+            <tr>
+                <td>Title : </td>
+                <td>
+                    <a title="View listing"
+                       th:href="@{'/viewListing/' + ${listing.listingId}}"
+                       th:text="${listing.title}"></a>
+                </td>
+            </tr>
+            <tr>
+                <td>Description : </td>
+                <td th:text="${listing.description}"></td>
+            </tr>
+            <tr>
+                <td>Price : </td>
+                <td th:text="${listing.price}"></td>
+            </tr>
+            <tr>
+                <td>Currency : </td>
+                <td th:text="${listing.currency}"></td>
+            </tr>
+            <tr>
+                <td>Type : </td>
+                <td th:text="${listing.type}"></td>
+            </tr>
+            <tr>
+                <td th:text="${#temporals.format(listing.updatedAt, 'dd-MM-yyyy HH:mm')}"></td>
+            </tr>
+        </table>
+    </div>
+    <div th:include="fragment/general.html :: paginationFragment" th:if="${listingList.size() != 0}"></div>
+</div>
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

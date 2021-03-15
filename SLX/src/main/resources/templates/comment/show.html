@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<body>
+    <!--/*@thymesVar id="comment" type="com.project.SLX.model.Comment"*/-->
+    <div th:fragment="show" class="comment mt-4 mb-2">
+        <p th:text="${comment.user.email}" class="comment__email"></p>
+        <div>
+            <p th:text="${comment.text}" class="comment__text"></p>
+        </div>
+    </div>
+</body>
+</html>

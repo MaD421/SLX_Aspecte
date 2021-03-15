@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"> </header>
+<div class="main-container container-fluid">
+    <div class="mb-3" th:if="${userId != null}">
+        <a class="btn btn-primary" th:href="@{'/user/' + ${userId} + '/messages'}">Message</a>
+    </div>
+    <table class="mb-4 mt-2">
+        <tr>
+            <td>Title : </td>
+            <td th:text="${listing.title}"></td>
+        </tr>
+        <tr>
+            <td>Description : </td>
+            <td th:text="${listing.description}"></td>
+        </tr>
+        <tr>
+            <td>Price : </td>
+            <td th:text="${listing.price}"></td>
+        </tr>
+        <tr>
+            <td>Currency : </td>
+            <td th:text="${listing.currency}"></td>
+        </tr>
+        <tr>
+            <td>Type : </td>
+            <td th:text="${listing.type}"></td>
+        </tr>
+        <tr>
+            <td>Views : </td>
+            <td th:text="${listing.views}"></td>
+        </tr>
+        <tr>
+            <td>Available : </td>
+            <td th:text="${listing.available ? 'Yes' : 'No'}"></td>
+        </tr>
+        <tr>
+            <td>Phone number: </td>
+            <td><a th:href="|tel:${listing.owner.phoneNumber}|" th:text="${listing.owner.phoneNumber}"></a></td>
+        </tr>
+        <tr>
+            <td>Posted by : </td>
+            <td th:text="${listing.owner.username}"></td>
+        </tr>
+        <tr>
+            <td>Name : </td>
+            <td th:text="${listing.owner.firstName} + ' ' + ${listing.owner.lastName}"></td>
+        </tr>
+        <tr>
+            <td>Posted on : </td>
+            <td th:text="${#temporals.format(listing.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+        </tr>
+        <tr>
+            <td>Last update : </td>
+            <td th:text="${#temporals.format(listing.updatedAt, 'dd-MM-yyyy HH:mm')}"></td>
+        </tr>
+        <div th:if="${isOwner == true && listing.listingLogs != null}">
+            <tr>
+                <td>Listing logs : </td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>Event</th>
+                            <th>Timestamp</th>
+                        </tr>
+                        <tr th:each="log: ${listing.listingLogs}">
+                            <td th:text="${log.event}"></td>
+                            <td th:text="${log.timeStamp}"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </div>
+    </table>
+    <div th:include="fragment/general.html :: imagesFragment" th:if="${listing.images.size() > 0}"></div>
+    <div sec:authorize="!hasRole('ROLE_ANONYMOUS')">
+        <div th:if="${isBookmarked == false}">
+            <form action="#" th:action="@{/bookmark/add/process}" th:method="PUT">
+                <input th:type="hidden" th:value="${listing.listingId}" th:name="listingId">
+                <input class="btn btn-outline-success mb-3" th:type="submit" th:value="'Bookmark'">
+            </form>
+        </div>
+        <div th:unless="${isBookmarked == false}">
+            <form action="#" th:action="@{/bookmark/delete/process}" th:method="DELETE">
+                <input th:type="hidden" th:value="${listing.listingId}" th:name="listingId">
+                <input class="btn btn-outline-danger mb-3" th:type="submit" th:value="'Delete Bookmark'">
+            </form>
+        </div>
+        <div th:if="${isOwner == true}">
+            <form action="#" th:action="@{/editListing}" th:method="GET">
+                <input th:type="hidden" th:value="${listing.listingId}" th:name="id">
+                <input class="btn btn-outline-info mb-3" th:type="submit" th:value="'Edit Listing'">
+            </form>
+        </div>
+        <div th:if="${isOwner == true}">
+            <form onsubmit="return confirmDelete();" action="#" th:action="@{/deleteListing/process}" th:method="DELETE">
+                <input th:type="hidden" th:value="${listing.listingId}" th:name="id">
+                <input class="btn btn-outline-danger mb-3" th:type="submit" th:value="'Delete Listing'">
+            </form>
+        </div>
+        <div th:if="${isOwner == false}">
+            <div th:replace="comment/add.html :: add"></div>
+        </div>
+    </div>
+    <!--/*@thymesVar id="comment" type="com.project.SLX.model.Comment"*/-->
+    <th:block th:if="${comments != null}">
+        <p th:text="'Comments(' + ${totalComments} + '):'"></p>
+        <div class="comments js-comments-container" th:if="${comments.size() > 0}">
+            <th:block th:each="comment: ${comments}">
+                <div th:replace="${comment.user == currentUser} ? ~{comment/edit.html :: edit} : ~{comment/show.html :: show}"></div>
+            </th:block>
+        </div>
+        <div th:include="fragment/general.html :: paginationFragment" th:if="${comments.size() > 0}"></div>
+    </th:block>
+</div>
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

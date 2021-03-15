@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"></header>
+<div class="container">
+    <h1>Add Listing</h1>
+    <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
+    <form th:action="@{/addListing/process}" th:object="${listing}" th:method="POST" enctype='multipart/form-data'>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input class="form-control" type="text" name="title" id="title" th:field="${listing.title}"
+                           size="30"/>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input class="form-control" type="text" name="price" id="price" th:field="${listing.price}"
+                           size="20"/>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="currency">Currency</label>
+                    <select th:field="${listing.currency}" name="currency" id="currency"
+                            class="form-control form-control-md">
+                        <option value="RON">RON</option>
+                        <option value="EURO">EURO</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <input class="form-control" type="text" name="type" id="type" th:field="${listing.type}" size="20"/>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label class="col-form-label">Images(maximum 5 allowed)</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="imagesListing" name="imagesListing" multiple
+                               accept="image/jpeg, image/jpg, image/png">
+                        <label class="custom-file-label" for="imagesListing">Choose images</label>
+                        <small>Each file must be 3 MB or less.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" name="description" id="description" rows="15" cols="40"
+                              th:field="${listing.description}"></textarea>
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-primary js-submit-listing" type="submit" value="Add listing"/>
+    </form>
+</div>
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

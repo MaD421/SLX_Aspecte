@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"> </header>
+<div class="main-container container-fluid">
+    <h1>Edit Profile</h1>
+    <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
+    <div class="alert alert-success" role="alert" th:if="${success != null}" th:text="${success}"></div>
+    <form th:action="@{/user/edit/process}" th:object="${userDetails}" th:method="PUT">
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            <input class="form-control" type="text" name="firstName" id ="firstName" th:field="${userDetails.firstName}" />
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input class="form-control" type="text" name="lastName" id ="lastName" th:field="${userDetails.lastName}" />
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input class="form-control" type="text" name="address" id ="address" th:field="${userDetails.address}" />
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" type="email" name="email" id ="email" th:field="${userDetails.email}" />
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone number</label>
+            <input class="form-control" type="text" name="phoneNumber" id ="phoneNumber" th:field="${userDetails.phoneNumber}" />
+        </div>
+        <div class="form-group">
+            <span>Enable notifications</span>
+            <div>
+                <div class="custom-control custom-radio">
+                    <input class="custom-control-input" id="enableNotifications1" name="enableNotifications" type="radio" th:field="${userDetails.enableNotifications}" th:checked="${userDetails.enableNotifications}" th:value="true">
+                    <label class="custom-control-label" for="enableNotifications1">Yes</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input class="custom-control-input" id="enableNotifications2" name="enableNotifications" type="radio" th:field="${userDetails.enableNotifications}" th:checked="${userDetails.enableNotifications}" th:value="false">
+                    <label class="custom-control-label" for="enableNotifications2">No</label>
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save Changes" />
+    </form>
+</div>
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

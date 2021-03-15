@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"> </header>
+<div class="main-container container-fluid">
+    <p>The listing was created! Click <a th:href="@{'/viewListing/' + ${listing.listingId}}" th:text="here"></a> to access the listing page.</p>
+</div>
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<body>
+<div th:fragment="add" class="mb-2 mt-2">
+    <p >Add a comment!</p>
+    <div class="form-group">
+        <label for="addComment">Comment:</label>
+        <textarea id="addComment" class="form-control" rows="3" cols="3"></textarea>
+    </div>
+    <button class="btn btn-success js-add-comment">Add</button>
+</div>
+</body>
+</html>

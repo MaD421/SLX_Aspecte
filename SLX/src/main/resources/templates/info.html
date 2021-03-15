@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+    <header th:insert="fragment/general.html :: header"> </header>
+    <div class="main-container container-fluid">
+        <!--/*@thymesVar id="error" type=""*/-->
+        <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
+        <div class="alert alert-success" role="alert" th:if="${success != null}" th:text="${success}"></div>
+    </div>
+    <div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

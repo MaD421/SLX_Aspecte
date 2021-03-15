@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head th:include="fragment/general.html :: headFragment"></head>
+<body>
+<header th:insert="fragment/general.html :: header"> </header>
+<div class="main-container container-fluid">
+    <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
+    <form th:action="@{/app-login}" method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" type="text" name="username" id ="username" size="30" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" name="password" id="password" size="30" />
+        </div>
+        <input class="btn btn-primary" type="submit" value="Login" />
+    </form>
+</div>
+
+<div th:include="fragment/general.html :: bottomScripts"></div>
+</body>
+</html>

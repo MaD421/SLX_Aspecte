@@ -1,0 +1,37 @@
+.inbox-title {
+    color: #0069d9;
+}
+
+.inbox-more-container {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 75px;
+}
+
+.inbox-message__link {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #0069d9;
+    color: #0069d9;
+}
+
+.inbox-message__link:hover {
+    background: #0069d9;
+    color: white;
+}
+
+.inbox-message__username {
+    font-weight: bold;
+}
+
+.inbox-message__text--own {
+    font-style: italic;
+}
+
+div.inbox-message:first-child {
+    margin-top: 0 !important;
+}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<body>
+    <!--/*@thymesVar id="comment" type="com.project.SLX.model.Comment"*/-->
+    <div th:fragment="edit" class="comment mt-4 mb-2" th:attr="data-id=${comment.id}">
+        <p class="comment__email">You</p>
+        <div class="form-group">
+            <textarea class="form-control js-comment-text" th:text="${comment.text}" rows="3" cols="3"></textarea>
+        </div>
+        <butotn class="btn btn-primary js-update-comment">Edit</butotn>
+        <button class="btn btn-danger js-delete-comment">Delete</button>
+    </div>
+</body>
+</html>
