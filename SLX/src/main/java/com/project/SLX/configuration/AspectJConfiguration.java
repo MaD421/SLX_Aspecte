@@ -1,8 +1,6 @@
 package com.project.SLX.configuration;
 
-import com.project.SLX.aspect.ListingProfilingAspect;
-import com.project.SLX.aspect.LogRequestAspect;
-import com.project.SLX.aspect.SMTPServiceAspect;
+import com.project.SLX.aspect.*;
 import org.aspectj.lang.Aspects;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,5 +23,15 @@ public class AspectJConfiguration {
     @Bean
     public LogRequestAspect logRequestAspect() {
         return Aspects.aspectOf(LogRequestAspect.class);
+    }
+
+    @Bean
+    public MessageAspect messageAspect() {
+        return Aspects.aspectOf(MessageAspect.class);
+    }
+
+    @Bean
+    public UserAspect userAspect() {
+        return Aspects.aspectOf(UserAspect.class);
     }
 }
