@@ -1,23 +1,15 @@
 package com.project.SLX.service;
 
-import com.project.SLX.configuration.SMTPConfiguration;
 import com.project.SLX.model.Email;
 import com.project.SLX.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class SMTPService {
-    private final SMTPConfiguration smtpConfiguration;
 
     private final static String emailHost = "http://localhost:8020";
-
-    @Autowired
-    public SMTPService(SMTPConfiguration smtpConfiguration) {
-        this.smtpConfiguration = smtpConfiguration;
-    }
 
     public void sendEmail(String to, String subject, String body) throws RestClientException {
         Email email = new Email();
@@ -25,7 +17,7 @@ public class SMTPService {
         email.setBody(body);
         email.setSubject(subject);
         email.setTo(to);
-        email.setFrom(smtpConfiguration.getFrom());
+        email.setFrom("no-reply@slx.com");
 
         RestTemplate restTemplate = new RestTemplate();
         String reqUrl = emailHost + "api/send";
