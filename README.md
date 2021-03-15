@@ -3,8 +3,9 @@
 Requirements : 
 
 - [x] IDE Plugins : Lombok
-- [x] JDK : 14.0.1
+- [x] JDK : 15.0.1
 - [x] MYSQL
+- [x] aspectjweaver-1.9.6.jar & spring-instrument-5.3.4.jar
 
 How to access H2 database :
 
