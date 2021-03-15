@@ -21,6 +21,4 @@ org.eclipse.jdt.core.prefs
 **/*.out
 **/*_out.txt
 **/build
-src/main/resources/static/cache
-src/main/resources/static/cache/**
-/src/main/resources/static/cache/
+
