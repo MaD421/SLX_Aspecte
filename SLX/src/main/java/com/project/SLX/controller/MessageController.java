@@ -36,10 +36,6 @@ public class MessageController {
     @PostMapping("/send/{sendTo}")
     @ResponseStatus(HttpStatus.CREATED)
     public String sendMessage(@RequestBody String body, @PathVariable Long sendTo) {
-        if (body == null || body.isEmpty()) {
-            throw new MessageException("Invalid body");
-        }
-
         User toUser = customUserDetailsService.getUserById(sendTo).orElse(null);
         if (toUser == null) {
             throw new UserException("User not found!");
