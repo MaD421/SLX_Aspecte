@@ -25,7 +25,12 @@ public class ResourceController {
     @GetMapping(value = "/css/{cssName}.css")
     public ResponseEntity<String> getCSS(@PathVariable String cssName) {
         final HttpHeaders headers = new HttpHeaders();
-        String cssFile = resourceService.getCSS(cssName);
-        return new ResponseEntity<>(cssFile, headers, HttpStatus.OK);
+
+        try {
+            String cssFile = resourceService.getCSS(cssName);
+            return new ResponseEntity<>(cssFile, headers, HttpStatus.OK);
+        } catch (Exception ignored) { }
+
+        return new ResponseEntity<>("", headers, HttpStatus.OK);
     }
 }
