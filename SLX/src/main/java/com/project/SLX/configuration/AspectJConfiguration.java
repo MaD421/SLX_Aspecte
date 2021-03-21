@@ -39,4 +39,9 @@ public class AspectJConfiguration {
     public UserAspect userAspect() {
         return Aspects.aspectOf(UserAspect.class);
     }
+
+    @Bean
+    public CommentAspect commentAspect() {
+        return Aspects.aspectOf(CommentAspect.class);
+    }
 }

@@ -19,5 +19,6 @@
         <aspect name="com.project.SLX.aspect.LogRequestAspect"/>
         <aspect name="com.project.SLX.aspect.MessageAspect"/>
         <aspect name="com.project.SLX.aspect.UserAspect"/>
+        <aspect name="com.project.SLX.aspect.CommentAspect"/>
     </aspects>
 </aspectj>

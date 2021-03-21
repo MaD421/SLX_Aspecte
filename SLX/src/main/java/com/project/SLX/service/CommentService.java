@@ -47,27 +47,8 @@ public class CommentService {
     }
 
     public boolean add(Long listingId, CommentDTO commentDTO) {
-        User user = null;
-        Listing listing = null;
-
-        try {
-            user = customUserDetailsService.getCurrentUser();
-        } catch (Exception e) {
-            log.warn("Unauthenticated request");
-            return false;
-        }
-
-        if (listingService.isOwner(user, listingId)) {
-            log.warn("Unauthorized request by user " + user.getUserId());
-            return false;
-        }
-
-        try {
-            listing = listingService.getById(listingId);
-        } catch (Exception e) {
-            log.warn("Comment by user " + user.getUserId() + " on not found image with id " + listingId);
-            return false;
-        }
+        User user = customUserDetailsService.getCurrentUser();
+        Listing listing = listingService.getById(listingId);
 
         try {
             Comment comment = new Comment();
@@ -86,27 +67,7 @@ public class CommentService {
     }
 
     public boolean update(Long id, CommentDTO commentDTO) {
-        User user = null;
-        Comment comment = null;
-
-        try {
-            user = customUserDetailsService.getCurrentUser();
-        } catch (Exception e) {
-            log.warn("Unauthenticated request");
-            return false;
-        }
-
-        try {
-            comment = this.findById(id);
-        } catch (Exception e) {
-            log.warn("Comment with id " + id + " not found");
-            return false;
-        }
-
-        if (!comment.getUser().equals(user)) {
-            log.warn("Unauthorized request by user " + user.getUserId());
-            return false;
-        }
+        Comment comment = this.findById(id);
 
         try {
             comment.setText(commentDTO.getText());
@@ -120,27 +81,7 @@ public class CommentService {
     }
 
     public boolean delete(Long id) {
-        User user = null;
-        Comment comment = null;
-
-        try {
-            user = customUserDetailsService.getCurrentUser();
-        } catch (Exception e) {
-            log.warn("Unauthenticated request");
-            return false;
-        }
-
-        try {
-            comment = this.findById(id);
-        } catch (Exception e) {
-            log.warn("Comment with id " + id + " not found");
-            return false;
-        }
-
-        if (!comment.getUser().equals(user)) {
-            log.warn("Unauthorized request by user " + user.getUserId());
-            return false;
-        }
+        Comment comment = this.findById(id);
 
         try {
             commentRepository.delete(comment);
