@@ -234,19 +234,6 @@ public class ListingController {
     @GetMapping("/editListing")
     public String editListing(Model model, @RequestParam("id") Long id, HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_OK);
-        User user;
-
-        try {
-            user = customUserDetailsService.getCurrentUser();
-        } catch (Exception e) {
-            return "redirect:/";
-        }
-
-        if (!listingService.isOwner(user, id)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return "redirect:/";
-        }
-
         Listing listing;
 
         try {
@@ -280,19 +267,6 @@ public class ListingController {
             return "listing/editListing";
         }
 
-        User user;
-
-        try {
-            user = customUserDetailsService.getCurrentUser();
-        } catch (Exception e) {
-            return "redirect:/";
-        }
-
-        if (!listingService.isOwner(user, listingDetails.getListingId())) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return "redirect:/";
-        }
-
         Listing listing;
 
         try {
@@ -315,19 +289,6 @@ public class ListingController {
     @DeleteMapping("deleteListing/process")
     public String deleteListingProcess(Model model, @RequestParam("id") Long id, HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_OK);
-
-        User user;
-
-        try {
-            user = customUserDetailsService.getCurrentUser();
-        } catch (Exception e) {
-            return "redirect:/";
-        }
-
-        if (!listingService.isOwner(user, id)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return "redirect:/";
-        }
 
         if (!listingService.delete(id)) {
             model.addAttribute("error", "This listing can't be deleted!");

@@ -16,6 +16,11 @@ public class AspectJConfiguration {
     }
 
     @Bean
+    public ListingAspect listingAspect() {
+        return Aspects.aspectOf(ListingAspect.class);
+    }
+
+    @Bean
     public SMTPServiceAspect smtpServiceAspect() {
         return Aspects.aspectOf(SMTPServiceAspect.class);
     }
