@@ -122,7 +122,7 @@ public class ListingController {
         return handleViewListing(id, page, "", model, response);
     }
 
-    private String handleViewListing(Long id, int page, String pagePrefix, Model model, HttpServletResponse response) {
+    public String handleViewListing(Long id, int page, String pagePrefix, Model model, HttpServletResponse response) {
         int commentsPerPage = 1;
         response.setStatus(HttpServletResponse.SC_OK);
         Listing listing;
@@ -134,7 +134,6 @@ public class ListingController {
 
         try {
             listing = listingService.getById(id);
-            listingService.incrementViews(id);
             model.addAttribute("listing", listing);
         } catch (ListingNotFoundException e) {
             model.addAttribute("error", e.getMessage());

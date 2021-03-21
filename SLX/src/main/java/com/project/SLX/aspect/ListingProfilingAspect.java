@@ -1,16 +1,21 @@
 package com.project.SLX.aspect;
 
 import com.project.SLX.controller.ListingController;
+import com.project.SLX.service.ListingService;
+import org.aspectj.lang.JoinPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StopWatch;
 
 @Slf4j
 @Aspect
 public class ListingProfilingAspect {
+
+    @Autowired
+    private ListingService listingService;
+
     private Object profileCall(ProceedingJoinPoint joinPoint, String message) throws Throwable {
         String methodSignature = joinPoint.getSignature().getName();
         StopWatch stopWatch = new StopWatch(getClass().getSimpleName());
@@ -64,5 +69,16 @@ public class ListingProfilingAspect {
             argNames = "controller"
     )
     public void myListings(ListingController controller) {
+    }
+
+    @Pointcut("execution(* com.project.SLX.controller.ListingController.handleViewListing(..))")
+    public void addViewsCall() {}
+
+    @After("addViewsCall()")
+    public void profileAddViews(JoinPoint joinpoint) {
+        Long id = (Long) joinpoint.getArgs()[0];
+        try {
+            listingService.incrementViews(id);
+        } catch (Exception ignored) { }
     }
 }
