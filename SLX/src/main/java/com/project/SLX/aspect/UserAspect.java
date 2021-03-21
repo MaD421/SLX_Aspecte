@@ -19,6 +19,5 @@ public class UserAspect {
             value = "execution(public * com.project.SLX.service.CustomUserDetailsService.create(com.project.SLX.model.User)) && args(user)",
             argNames = "user"
     )
-    public void userRegistrationPointcut(User user) {
-    }
+    public void userRegistrationPointcut(User user) { }
 }

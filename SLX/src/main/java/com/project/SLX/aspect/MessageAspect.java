@@ -21,6 +21,5 @@ public class MessageAspect {
             value = "execution(public * com.project.SLX.controller.MessageController.sendMessage(String, ..)) && args(body, ..)",
             argNames = "body"
     )
-    public void beforeSendMessagePointcut(String body) {
-    }
+    public void beforeSendMessagePointcut(String body) { }
 }

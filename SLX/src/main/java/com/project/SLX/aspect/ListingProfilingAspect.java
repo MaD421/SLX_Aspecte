@@ -53,8 +53,7 @@ public class ListingProfilingAspect {
             value = "execution(public * com.project.SLX.controller.ListingController.getUsersListings(.., Long, ..)) && args(*, userId, ..)",
             argNames = "userId"
     )
-    public void userListings(Long userId) {
-    }
+    public void userListings(Long userId) { }
 
     @Around(value = "myListings(controller)", argNames = "joinPoint,controller")
     public Object profileMyListings(ProceedingJoinPoint joinPoint, ListingController controller) throws Throwable {
@@ -68,8 +67,7 @@ public class ListingProfilingAspect {
                     "execution(public * com.project.SLX.controller.ListingController.getMyListingsPaged(..)) && target(controller)",
             argNames = "controller"
     )
-    public void myListings(ListingController controller) {
-    }
+    public void myListings(ListingController controller) { }
 
     @Pointcut("execution(* com.project.SLX.controller.ListingController.handleViewListing(..))")
     public void addViewsCall() {}

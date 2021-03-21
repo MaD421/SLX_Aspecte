@@ -48,8 +48,7 @@ public class ListingAspect {
                     "execution(public String com.project.SLX.controller.ListingController.deleteListingProcess(.., Long, ..)) && args(*, id, ..)",
             argNames = "id"
     )
-    public void checkOwnerWithIdPointcut(Long id) {
-    }
+    public void checkOwnerWithIdPointcut(Long id) { }
 
     @Around(value = "checkOwnerWithModelPointcut(listingDetails)", argNames = "joinPoint,listingDetails")
     public String checkOwnerWithModel(ProceedingJoinPoint joinPoint, Listing listingDetails) throws Throwable {
@@ -60,6 +59,6 @@ public class ListingAspect {
             value = "execution(public String com.project.SLX.controller.ListingController.editListingProcess(com.project.SLX.model.Listing, ..)) && args(listingDetails, ..)",
             argNames = "listingDetails"
     )
-    public void checkOwnerWithModelPointcut(Listing listingDetails) {
-    }
+    public void checkOwnerWithModelPointcut(Listing listingDetails) { }
+
 }
