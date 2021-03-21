@@ -13,6 +13,11 @@ public class Email {
 
     public String body;
 
+    public Email(String to, String from) {
+        this.to = to;
+        this.from = from;
+    }
+
     public void setTo(String to) {
         this.to = to;
     }

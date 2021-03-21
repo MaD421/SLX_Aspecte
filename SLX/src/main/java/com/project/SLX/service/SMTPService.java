@@ -9,18 +9,18 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class SMTPService {
 
-    private final static String emailHost = "http://localhost:8020";
+    private final static String EMAIL_HOST = "http://localhost:8020";
+
+    private final static String DEFAULT_FROM = "no-reply@slx.com";
 
     public void sendEmail(String to, String subject, String body) throws RestClientException {
-        Email email = new Email();
+        Email email = new Email(to, DEFAULT_FROM);
 
         email.setBody(body);
         email.setSubject(subject);
-        email.setTo(to);
-        email.setFrom("no-reply@slx.com");
 
         RestTemplate restTemplate = new RestTemplate();
-        String reqUrl = emailHost + "api/send";
+        String reqUrl = EMAIL_HOST + "api/send";
         restTemplate.postForObject(reqUrl, email, Email.class);
     }
 
@@ -39,6 +39,5 @@ public class SMTPService {
         });
 
         return content.toString();
-
     }
 }
