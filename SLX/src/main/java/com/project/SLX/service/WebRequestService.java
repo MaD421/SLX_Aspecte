@@ -1,10 +1,10 @@
 package com.project.SLX.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Component
+@Service
 public class WebRequestService {
 
     public String getClientIpFromRequest(HttpServletRequest request) {

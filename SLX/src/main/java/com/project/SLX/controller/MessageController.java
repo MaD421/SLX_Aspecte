@@ -5,7 +5,6 @@ import com.project.SLX.model.Message;
 import com.project.SLX.model.User;
 import com.project.SLX.model.dto.InboxMessageDTO;
 import com.project.SLX.model.dto.MessageDTO;
-import com.project.SLX.model.exception.MessageException;
 import com.project.SLX.model.exception.UserException;
 import com.project.SLX.service.CustomUserDetailsService;
 import com.project.SLX.service.InboxMessageService;
@@ -52,7 +51,7 @@ public class MessageController {
     // ex: /getByUser/32?page=5
     @GetMapping("/getByUser/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<MessageDTO> getAllMessagesByUser(@PageableDefault(value = MessageViewController.messagesPerPage, page = MessageViewController.initialPage) Pageable page, @PathVariable Long userId) {
+    public List<MessageDTO> getAllMessagesByUser(@PageableDefault(value = MessageViewController.messagesPerPage) Pageable page, @PathVariable Long userId) {
         User user = customUserDetailsService.getCurrentUser();
         List<Message> messages = messageService.findAllToUserAndByUser(userId, user.getUserId(), page);
         List<MessageDTO> messageDTOS = new ArrayList<>();
@@ -68,7 +67,7 @@ public class MessageController {
 
     @GetMapping("/inbox")
     @ResponseStatus(HttpStatus.OK)
-    public List<InboxMessageDTO> getInbox(@PageableDefault(value = MessageViewController.inboxMessagesPerPage, page = MessageViewController.initialPage) Pageable page) {
+    public List<InboxMessageDTO> getInbox(@PageableDefault(value = MessageViewController.inboxMessagesPerPage) Pageable page) {
         User user = customUserDetailsService.getCurrentUser();
         List<InboxMessage> inboxMessages = inboxMessageService.findInbox(user.getUserId(), page);
         List<InboxMessageDTO> inboxMessageDTOS = new ArrayList<>();

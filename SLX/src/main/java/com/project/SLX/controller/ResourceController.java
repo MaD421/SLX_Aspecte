@@ -26,7 +26,6 @@ public class ResourceController {
     public ResponseEntity<String> getCSS(@PathVariable String cssName) {
         final HttpHeaders headers = new HttpHeaders();
         String cssFile = resourceService.getCSS(cssName);
-
         return new ResponseEntity<>(cssFile, headers, HttpStatus.OK);
     }
 }
