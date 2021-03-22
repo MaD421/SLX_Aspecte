@@ -31,6 +31,7 @@ public class SMTPServiceAspect {
         for (int i = 0; i < MAX_RETRIES; i++) {
             try {
                 proceedingJoinPoint.proceed();
+                return;
             } catch (Exception e) {
                 log.info("Failed to send email to {}. Retrying {} ...", to, i + 1);
                 ex = e;
