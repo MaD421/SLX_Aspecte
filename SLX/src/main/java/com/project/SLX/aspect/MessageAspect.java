@@ -5,8 +5,10 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
 @Aspect
+@Component
 public class MessageAspect {
     @Around(value = "beforeSendMessagePointcut(body)", argNames = "joinPoint,body")
     public Object beforeSendMessage(ProceedingJoinPoint joinPoint, String body) throws Throwable {

@@ -6,9 +6,11 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @Aspect
+@Component
 public class UserAspect {
     @AfterReturning(value = "userRegistrationPointcut(user)", argNames = "joinPoint,user")
     public void logUserRegister(JoinPoint joinPoint, User user) {

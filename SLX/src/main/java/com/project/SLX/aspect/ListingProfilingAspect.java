@@ -6,15 +6,19 @@ import org.aspectj.lang.JoinPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 @Slf4j
 @Aspect
+@Component
 public class ListingProfilingAspect {
 
-    @Autowired
-    private ListingService listingService;
+    private final ListingService listingService;
+
+    public ListingProfilingAspect(ListingService listingService) {
+        this.listingService = listingService;
+    }
 
     private Object profileCall(ProceedingJoinPoint joinPoint, String message) throws Throwable {
         String methodSignature = joinPoint.getSignature().getName();
@@ -69,12 +73,15 @@ public class ListingProfilingAspect {
     )
     public void myListings(ListingController controller) { }
 
-    @Pointcut("execution(* com.project.SLX.controller.ListingController.handleViewListing(..))")
-    public void addViewsCall() {}
+    @Pointcut(
+            value = "execution(* com.project.SLX.controller.ListingController.viewListing(Long, ..)) && args(id, ..) || " +
+                    "execution(* com.project.SLX.controller.ListingController.viewListingPaged(Long, ..)) && args(id, ..)",
+            argNames = "id"
+    )
+    public void addViewsCall(Long id) {}
 
-    @After("addViewsCall()")
-    public void profileAddViews(JoinPoint joinpoint) {
-        Long id = (Long) joinpoint.getArgs()[0];
+    @After(value = "addViewsCall(id)", argNames = "joinPoint,id")
+    public void profileAddViews(JoinPoint joinPoint, Long id) {
         try {
             listingService.incrementViews(id);
         } catch (Exception ignored) { }

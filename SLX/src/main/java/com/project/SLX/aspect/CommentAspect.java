@@ -1,7 +1,6 @@
 package com.project.SLX.aspect;
 
 import com.project.SLX.model.Comment;
-import com.project.SLX.model.Listing;
 import com.project.SLX.model.User;
 import com.project.SLX.service.CommentService;
 import com.project.SLX.service.CustomUserDetailsService;
@@ -11,16 +10,20 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @Aspect
+@Component
 public class CommentAspect {
-    @Autowired
-    private ListingService listingService;
+    private final ListingService listingService;
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
+
+    public CommentAspect(ListingService listingService, CustomUserDetailsService customUserDetailsService) {
+        this.listingService = listingService;
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     @Around(value = "checkOwnerAddPointcut(listingId)", argNames = "joinPoint,listingId")
     public boolean checkOwnerAddAdvice(ProceedingJoinPoint joinPoint, Long listingId) throws Throwable {

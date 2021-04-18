@@ -71,7 +71,7 @@ public class UserController {
             Long userId = customUserDetailsService.create(user);
             log.info("User with id {} was created", userId);
         } catch (DataIntegrityViolationException e) {
-            model.addAttribute("error", "Username already taken!");
+            model.addAttribute("error", "Username or email already taken!");
             model.addAttribute("newUser", newUser);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 

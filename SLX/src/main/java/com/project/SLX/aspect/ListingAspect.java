@@ -9,16 +9,20 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @Aspect
+@Component
 public class ListingAspect {
-    @Autowired
-    private ListingService listingService;
+    private final ListingService listingService;
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
+
+    public ListingAspect(ListingService listingService, CustomUserDetailsService customUserDetailsService) {
+        this.listingService = listingService;
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     private String checkOwner(ProceedingJoinPoint joinPoint, Long listingId) throws Throwable {
         User user;

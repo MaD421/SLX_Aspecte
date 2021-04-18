@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,9 +14,13 @@ import java.io.IOException;
 
 @Slf4j
 @Aspect
+@Component
 public class LogRequestAspect {
-    @Autowired
-    private WebRequestService webRequestService;
+    private final WebRequestService webRequestService;
+
+    public LogRequestAspect(WebRequestService webRequestService) {
+        this.webRequestService = webRequestService;
+    }
 
     @Before("@annotation(LogRequest)")
     public void logRequestCall(JoinPoint joinPoint) throws IOException {
